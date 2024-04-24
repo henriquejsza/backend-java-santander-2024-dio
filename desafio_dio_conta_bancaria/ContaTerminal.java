@@ -1,34 +1,92 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.regex.*;
 
 public class ContaTerminal {
     public static void main(String[] args) {
-        // Inicialização do Scanner para captura de entrada do usuário
         Scanner scanner = new Scanner(System.in);
+        List<Conta> contas = new ArrayList<>();
 
-        // Solicitação do número da Agência
-        System.out.println("Digite o número da Agência (exemplo: 067-8):");
-        String agencia = scanner.nextLine(); // Captura o número da agência fornecido pelo usuário
+        boolean criarNovaConta = true;
 
-        // Solicitação do número da Conta
-        System.out.println("Digite o número da Conta (exemplo: 1021):");
-        // Converte a entrada para int, já que o número da conta é um inteiro
-        int numero = Integer.parseInt(scanner.nextLine()); // Captura o número da conta fornecido pelo usuário
+        while (criarNovaConta) {
+            String agencia = "";
+            int numero = 0;
+            String nomeCliente = "";
+            double saldo = 0;
 
-        // Solicitação do nome do Cliente
-        System.out.println("Digite o nome do Cliente:");
-        String nomeCliente = scanner.nextLine(); // Captura o nome do cliente fornecido pelo usuário
+            boolean agenciaValida = false;
+            boolean numeroContaValido = false;
+            boolean saldoValido = false;
 
-        // Solicitação do saldo
-        System.out.println("Digite o saldo (exemplo: 237.48):");
-        // Substitui todas as vírgulas por pontos para garantir que o formato seja válido
-        String saldoString = scanner.nextLine().replace(',', '.');
-        // Converte a entrada para double, já que o saldo é um número decimal
-        double saldo = Double.parseDouble(saldoString); // Captura o saldo fornecido pelo usuário
+            while (!agenciaValida) {
+                System.out.println("Digite o número da Agência (exemplo: 067-8):");
+                agencia = scanner.nextLine();
+                if (agencia.matches("\\d{3}-\\d")) {
+                    agenciaValida = true;
+                } else {
+                    System.out.println("Número da Agência inválido. Por favor, insira no formato correto (exemplo: 067-8).");
+                }
+            }
 
-        // Construção da mensagem de saudação ao cliente, incluindo os dados fornecidos
-        System.out.printf("Olá %s, obrigado por criar uma conta em nosso banco, sua agência é %s, conta %d e seu saldo é R$%.2f já está disponível para saque.\n", nomeCliente, agencia, numero, saldo);
+            while (!numeroContaValido) {
+                System.out.println("Digite o número da Conta (exemplo: 1021):");
+                try {
+                    numero = Integer.parseInt(scanner.nextLine());
+                    numeroContaValido = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Número da Conta inválido. Por favor, insira um número válido.");
+                }
+            }
 
-        // Fechamento do Scanner para liberar recursos
+            System.out.println("Digite o nome do Cliente:");
+            nomeCliente = scanner.nextLine();
+
+            while (!saldoValido) {
+                System.out.println("Digite o saldo (exemplo: 237.48):");
+                try {
+                    saldo = Double.parseDouble(scanner.nextLine().replace(',', '.'));
+                    saldoValido = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Saldo inválido. Por favor, insira um número válido.");
+                }
+            }
+
+            Conta novaConta = new Conta(agencia, numero, nomeCliente, saldo);
+            contas.add(novaConta);
+
+            System.out.println("Conta criada com sucesso!");
+
+            System.out.println("Deseja criar outra conta? (sim/não):");
+            String resposta = scanner.nextLine();
+            criarNovaConta = resposta.equalsIgnoreCase("sim");
+        }
+
+        System.out.println("Lista de Contas Criadas:");
+        for (Conta conta : contas) {
+            System.out.println(conta);
+        }
+
         scanner.close();
+    }
+}
+
+class Conta {
+    private String agencia;
+    private int numero;
+    private String nomeCliente;
+    private double saldo;
+
+    public Conta(String agencia, int numero, String nomeCliente, double saldo) {
+        this.agencia = agencia;
+        this.numero = numero;
+        this.nomeCliente = nomeCliente;
+        this.saldo = saldo;
+    }
+
+    @Override
+    public String toString() {
+        return "Agência: " + agencia + ", Conta: " + numero + ", Cliente: " + nomeCliente + ", Saldo: R$" + saldo;
     }
 }
