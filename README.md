@@ -31,7 +31,7 @@ Dentro do projeto, criar a classe `ContaTerminal.java` para realizar toda a codi
 
 ## Resultado
 
-![Imagem](img_resultado/resultado.resultado.png)
+![Imagem](img_resultado/resultado.png)
 
 
 
