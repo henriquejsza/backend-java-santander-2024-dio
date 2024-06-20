@@ -1,6 +1,6 @@
 # Santander 2024 - Backend com Java
 
-Bem-vindo ao repositório da trilha de Back-end Java do Santander Bootcamp 2024! Aqui você encontrará os projetos e desafios desenvolvidos por Henrique José de Souza durante o curso.
+Bem-vindo ao repositório da trilha de Back-end Java do Santander Bootcamp 2024! Aqui você encontrará os projetos e desafios desenvolvidos por mim durante o curso.
 
 ## Sobre o Bootcamp
 
