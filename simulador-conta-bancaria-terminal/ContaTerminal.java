@@ -1,4 +1,6 @@
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ContaTerminal {
@@ -68,8 +70,15 @@ public class ContaTerminal {
         // Mensagem de confirmação de criação da conta
         System.out.println("Conta criada com sucesso!");
 
+        // Formatação do saldo
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        String saldoFormatado = nf.format(saldo);
+
         // Construção da mensagem de saudação ao cliente
-        System.out.printf("Olá %s, obrigado por criar uma conta em nosso banco, sua agência é %s, conta %d e seu saldo é R$%.2f já está disponível para saque.\n", nomeCliente, agencia, numero, saldo);
+        System.out.printf("Olá %s, obrigado por criar uma conta em nosso banco, sua agência é %s, conta %d e seu saldo é %s já está disponível para saque.\n", nomeCliente, agencia, numero, saldoFormatado);
+
+        // Linha de separação
+        System.out.println("--------------------------");
 
         // Mensagem padrão
         System.out.println("Olá, bem-vindo ao banco!");
@@ -188,5 +197,4 @@ public class ContaTerminal {
         System.out.printf("Saque de R$%.2f realizado com sucesso. Novo saldo: R$%.2f\n", valorSaque, conta.saldo);
     }
 }
-
 
